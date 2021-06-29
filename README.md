@@ -1,1 +1,5 @@
 # Bio-AI-Project
+
+````
+python3 main.py -d Italy -f data/transport_co2_data.csv
+````

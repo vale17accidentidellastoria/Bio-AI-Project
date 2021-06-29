@@ -1,0 +1,15 @@
+origin_country;destination_country;origin_city;destination_city;transport_mode;freight;load_factor;distance_wtw;co2_wtw
+USA;Italy;Washington D.C.;Rome;airplane;100;60;7,407;616.03
+USA;Peru;Washington D.C.;Lima;airplane;100;70;5,825;445.90
+USA;Egypt;Washington D.C.;Cairo;sea_ship;100;100;10,263;4.59
+USA;China;Washington D.C.;Beijing;airplane;100;100;11,292;700.62
+USA;India;Washington D.C.;New Delhi;sea_ship;100;85;16,652;14.69
+Italy;Peru;Rome;Lima;sea_ship;100;95;12,732;6.27
+Italy;Turkey;Rome;Ankara;train;100;55;2,951;6.95
+Italy;China;Rome;Beijing;train;100;60;11,779;36
+Turkey;Uzbekistan;Ankara;Tashkent;truck;100;65;4,393;31
+Turkey;Egypt;Ankara;Cairo;sea_ship;100;70;2,226;5.12
+China;India;Beijing;New Delhi;train;100;40;10,563;43
+China;Vietnam;Beijing;Hanoi;truck;100;85;3,018;17
+China;Bangladesh;Beijing;Dhaka;truck;100;40;4,475;45
+Vietnam;Bangladesh;Hanoi;Dhaka;train;100;100;14,415;38

@@ -1,0 +1,9 @@
+origin_country;destination_country;origin_city;destination_city;transport_mode;freight;load_factor;distance_wtw;co2_wtw
+USA;UK;NewYork;London;airplane;100;70;5,716;438.08
+USA;Italy;NewYork;Milan;sea_ship;100;57;7,755;11.22
+UK;Italy;London;Milan;train;100;100;1,253;0.58
+Italy;Russia;Milan;Moscow;truck;100;60;2,837;21
+Italy;Australia;Milan;Melbourne;sea_ship;100;55;17,356;13.35
+Russia;Australia;Moscow;Melbourne;airplane;100;70;14,581;1111.33
+Russia;China;Moscow;Beijing;truck;100;60;7,047;54.0
+China;Australia;Beijing;Melbourne;sea_ship;100;100;10,634;5.42

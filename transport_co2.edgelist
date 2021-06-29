@@ -1,0 +1,14 @@
+USA Italy {'origin_city':'Washington D.C.', 'destination_city':'Rome', 'transport_mode':'airplane', 'freight':100, 'load_factor':60, 'distance_wtw':7407, 'co2_wtw':616.03}
+USA Peru {'origin_city':'Washington D.C.', 'destination_city':'Lima', 'transport_mode':'airplane', 'freight':100, 'load_factor':70, 'distance_wtw':5825, 'co2_wtw':445.90}
+USA Egypt {'origin_city':'Washington D.C.', 'destination_city':'Cairo', 'transport_mode':'sea_ship', 'freight':100, 'load_factor':100, 'distance_wtw':10263, 'co2_wtw':4.59}
+USA China {'origin_city':'Washington D.C.', 'destination_city':'Beijing', 'transport_mode':'airplane', 'freight':100, 'load_factor':100, 'distance_wtw':11292, 'co2_wtw':700.62}
+USA India {'origin_city':'Washington D.C.', 'destination_city':'New Delhi', 'transport_mode':'sea_ship', 'freight':100, 'load_factor':85, 'distance_wtw':16652, 'co2_wtw':14.69}
+Italy Peru {'origin_city':'Rome', 'destination_city':'Lima', 'transport_mode':'sea_ship', 'freight':100, 'load_factor':95, 'distance_wtw':12732, 'co2_wtw':6.27}
+Italy Turkey {'origin_city':'Rome', 'destination_city':'Ankara', 'transport_mode':'train', 'freight':100, 'load_factor':55, 'distance_wtw':2951, 'co2_wtw':6.95}
+Italy China {'origin_city':'Rome', 'destination_city':'Beijing', 'transport_mode':'train', 'freight':100, 'load_factor':60, 'distance_wtw':11779, 'co2_wtw':36}
+Turkey Uzbekistan {'origin_city':'Ankara', 'destination_city':'Tashkent', 'transport_mode':'truck', 'freight':100, 'load_factor':65, 'distance_wtw':4393, 'co2_wtw':31}
+Turkey Egypt {'origin_city':'Ankara', 'destination_city':'Cairo', 'transport_mode':'sea_ship', 'freight':100, 'load_factor':70, 'distance_wtw':2226, 'co2_wtw':5.12}
+China India {'origin_city':'Beijing', 'destination_city':'New Delhi', 'transport_mode':'train', 'freight':100, 'load_factor':40, 'distance_wtw':10563, 'co2_wtw':43}
+China Vietnam {'origin_city':'Beijing', 'destination_city':'Hanoi', 'transport_mode':'truck', 'freight':100, 'load_factor':85, 'distance_wtw':3018, 'co2_wtw':17}
+China Bangladesh {'origin_city':'Beijing', 'destination_city':'Dhaka', 'transport_mode':'truck', 'freight':100, 'load_factor':40, 'distance_wtw':4475, 'co2_wtw':45}
+Vietnam Bangladesh {'origin_city':'Hanoi', 'destination_city':'Dhaka', 'transport_mode':'train', 'freight':100, 'load_factor':100, 'distance_wtw':14415, 'co2_wtw':38}

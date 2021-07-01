@@ -36,9 +36,11 @@ def main(argv):
     st_index_countries = {}
 
     for c in countries:
-        if c != DESTINATION_COUNTRY:
+        if c == DESTINATION_COUNTRY:
+            st_index_countries[c] = 10.0
+        else:
             st_index_countries[c] = st_index.compute_transport_sustainability_index(G, shortest_paths[c], edge_attrs)
-            print("\t {} = {}".format(c, st_index_countries[c]))
+        print("\t {} = {}".format(c, st_index_countries[c]))
 
 if __name__ == "__main__":   
     main(sys.argv[1:])

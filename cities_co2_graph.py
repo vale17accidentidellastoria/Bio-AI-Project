@@ -107,20 +107,19 @@ def main(argv):
             shutil.rmtree("shortest_paths_images")
 
         for origin_country in COUNTRIES:
-            if origin_country != destination_country:
-                all_shortest_paths[origin_country] = nx.shortest_path(G, source=origin_country, target=destination_country, weight="co2_wtw")
-                print("The shortest path from {} to {} is: {}".format(origin_country, destination_country, all_shortest_paths[origin_country]))
+            all_shortest_paths[origin_country] = nx.shortest_path(G, source=origin_country, target=destination_country, weight="co2_wtw")
+            print("The shortest path from {} to {} is: {}".format(origin_country, destination_country, all_shortest_paths[origin_country]))
 
-                for country, next_country in zip(all_shortest_paths[origin_country], all_shortest_paths[origin_country][1:]):
-                    print("{} - {}:".format(country, next_country))
-                    for attr in EDGE_ATTRS:
-                        print("\t {}: {}".format(attr, G[country][next_country][attr]))
-                
-                all_shortest_paths_lengths[origin_country] = nx.shortest_path_length(G, source=origin_country, target=destination_country, weight="co2_wtw")
-                print("The total amount of CO2 emissions of the travel is {} tonnes".format(all_shortest_paths_lengths[origin_country]))
-                print("--------##################--------")
+            for country, next_country in zip(all_shortest_paths[origin_country], all_shortest_paths[origin_country][1:]):
+                print("{} - {}:".format(country, next_country))
+                for attr in EDGE_ATTRS:
+                    print("\t {}: {}".format(attr, G[country][next_country][attr]))
 
-                plot_graph(G, weight="co2_wtw", shortest_path=all_shortest_paths[origin_country])
+            all_shortest_paths_lengths[origin_country] = nx.shortest_path_length(G, source=origin_country, target=destination_country, weight="co2_wtw")
+            print("The total amount of CO2 emissions of the travel is {} tonnes".format(all_shortest_paths_lengths[origin_country]))
+            print("--------##################--------")
+
+            plot_graph(G, weight="co2_wtw", shortest_path=all_shortest_paths[origin_country])
     
     except (nx.NetworkXNoPath, nx.NodeNotFound) as error:
         raise SystemExit("There is no path for the cities you selected. Try and check again the input cities")

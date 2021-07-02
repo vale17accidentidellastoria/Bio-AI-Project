@@ -3,6 +3,9 @@ import getopt
 import os
 import cities_co2_graph as transport_graph
 import st_index as st_index
+import pr_index as pr_index
+from PIL import Image
+
 
 # Disable
 def blockPrint():
@@ -41,6 +44,17 @@ def main(argv):
         else:
             st_index_countries[c] = st_index.compute_transport_sustainability_index(G, shortest_paths[c], edge_attrs)
         print("\t {} = {}".format(c, st_index_countries[c]))
+        
+    pr_index_countries, final_table = pr_index.compute_production_sustainability_index()
+    
+    print("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°")
+    print("The sustainability indexes for production are:")    
+    for c in pr_index_countries.keys(): 
+        print("Country: %s ---> %s"  %(c, pr_index_countries[c]))
+    print("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°")
+    print("Corresponding csv file has been saved in the \'data\' directory.")
+    with Image.open('data/final.png') as img:
+        img.show()
 
 if __name__ == "__main__":   
     main(sys.argv[1:])

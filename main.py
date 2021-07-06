@@ -50,7 +50,7 @@ def main(argv):
     print("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°")
     print("The sustainability indexes for production are:")    
     for c in pr_index_countries.keys(): 
-        print("Country: %s ---> %s"  %(c, pr_index_countries[c]))
+        print("\t {} = {}".format(c, pr_index_countries[c]))
     print("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°")
     print("Corresponding csv file has been saved in the \'data\' directory.")
     with Image.open('data/final.png') as img:

@@ -62,7 +62,7 @@ def create_dataframe(countries, fertilizer, water):
     return df 
 
 
-def main():
+def compute_production_sustainability_index():
     df = create_dataframe(countries, fertilizer, water)
     idx= df["Final Index"].values
     obj_zip = zip(countries, idx)    
@@ -70,13 +70,7 @@ def main():
     final = df[["Country", "Fertilizer waste index", "Water efficiency index", "Final Index"]].copy()
     final = final.sort_values(by="Final Index").reset_index().drop(columns="index")
     final.style.background_gradient(cmap="RdYlGn", subset="Final Index", vmin=0, vmax=10).export_png('data/final.png')
-    print("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°")
-    print("The sustainability indexes for production are:")    
-    for c in index_prod.keys(): 
-        print("Country: %s ---> %s"  %(c, index_prod[c]))
-    print("Corresponding csv file has been saved in the \'data\' directory.")
-    with Image.open('data/final.png') as img:
-        img.show()
+    return index_prod, df 
 
 if __name__ == "__main__":
     main()

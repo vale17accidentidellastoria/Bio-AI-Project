@@ -72,9 +72,6 @@ def compute_production_sustainability_index():
     final.style.background_gradient(cmap="RdYlGn", subset="Final Index", vmin=0, vmax=10).export_png('data/final.png')
     return index_prod, df 
 
-if __name__ == "__main__":
-    main()
-
 
 
 

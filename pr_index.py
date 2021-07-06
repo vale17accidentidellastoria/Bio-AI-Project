@@ -57,7 +57,7 @@ def create_dataframe(countries, fertilizer, water):
         df.loc[df.Country==el.Country, "Multiplier fert"] = multiplier(f)
     df["Fertilizer waste index"] = 1 - (((df["Fertilizer"]* df["Multiplier fert"])-1028.36)/2206.13)
     df["Water efficiency index"] = 1 - (((100-df["Water efficiency"])-2)/78)
-    df["Final Index"] = round((6*df["Fertilizer waste index"]) + (4 * df["Water efficiency index"]),2)
+    df["Final Index"] = (6*df["Fertilizer waste index"]) + (4 * df["Water efficiency index"])
     df.to_csv("data/production_index.csv")
     return df 
 

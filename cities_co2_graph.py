@@ -47,7 +47,7 @@ def create_edgelist_from_csv_transport_file(input_file):
         transport_edgelist_file.close()
 
 def plot_graph(G, weight="weight", shortest_path=None):
-    nx.draw_shell(G, with_labels=True, node_color='#00b4d9', node_size=2000)
+    nx.draw_circular(G, with_labels=True, node_color='#00b4d9', node_size=2000)
     labels = nx.get_edge_attributes(G, weight)
     nx.draw_networkx_edge_labels(G, pos=nx.circular_layout(G), edge_labels=labels)
     filename = "transport_graph.png"

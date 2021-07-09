@@ -34,13 +34,15 @@ def main(argv):
 
     #create an empty vector for a dictionary with countries as keys and sustainability indexes as values
     st_index_countries = {}
+    #wr_index_countries = {}
 
     for c in countries:
         if c == DESTINATION_COUNTRY:
             st_index_countries[c] = 10.0
         else:
             st_index_countries[c] = st_index.compute_transport_sustainability_index(G, shortest_paths[c], edge_attrs)
-        print("\t {} = {}".format(c, st_index_countries[c]))
+            wr_index_countries[c] = wr_index.compute_workers_sustainability_index(c)
+        print("\t {} = {}".format(c, st_index_countries[c], wr_index_countries[c]))
 
 if __name__ == "__main__":   
     main(sys.argv[1:])

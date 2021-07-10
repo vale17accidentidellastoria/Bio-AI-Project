@@ -2,28 +2,26 @@ import statistics as st
 
 def age_penalty(val):
     penalty = 0
-    if val < 14:
-        penalty = 80
-    elif 14 <= val < 16:
+    if int(val) < 14:
+        penalty = 80    
+    elif 14 <= int(val) < 16:
         penalty = 75
-    elif 16 <= val < 18:
+    elif 16 <= int(val) < 18:
         penalty = 55
-    elif 0.001 <= val < 0.01:
+    elif int(val) >= 18:
         penalty = 35
     return penalty
 
-def work_hours_multiplier(val):multi
-    multi = 2
-    i = 14
-    if val > 14:
-        multi = 1
-    while i >= 0 && i < 15:
-        if i==val:
-            break   
-        i = i -1
-        multi = multi + 1 
-    return multi
+def work_hours_multiplier(val):
+    multiplier = 2
+    hours= 14
+    if int(val) > 14:
+        multiplier = 1
 
+    while hours >= 0 and hours < 15 and hours != int(val):   
+        hours = hours - 1
+        multiplier = multiplier + 1 
+    return multiplier
 
 def compute_workers_sustainability_index(country):
     
@@ -37,23 +35,25 @@ def compute_workers_sustainability_index(country):
     begin_age = []
 
     for element in info:
-        countries.append(element.split('\t')[0])
-        salary.append(element.split('\t')[1])
-        life_cost.append(element.split('\t')[2])
-        work_hours.append(element.split('\t')[3])
-        begin_age.append(element.split('\t')[4])
+        value = element.split('\t')
+        countries.append(value[0])
+        salary.append(value[1])
+        life_cost.append(value[2])
+        work_hours.append(value[3])
+        begin_age.append(value[4].replace("\n",""))
 
-    i = 0    
+    i = 0
+    temp = 0  
     for c in countries:
         if c == country:
             temp = i
         else:
             i = i + 1
 
-    multiplier = work_hours_multiplier(work_hours[temp])
+    multiplier = work_hours_multiplier(int(work_hours[temp]))
     begin_age_penalty =age_penalty(begin_age[temp])
 
-    money_ratio = float(salary[temp] / life_cost[temp])
+    money_ratio = float(int(salary[temp]) / int(life_cost[temp]))
 
     moltiplication = float(money_ratio * multiplier)
 
@@ -61,6 +61,4 @@ def compute_workers_sustainability_index(country):
 
     workers_index = moltiplication - penalty_percentage
 
-    #print("workers_index: ", workers_index)
-
-    return workers_index
+    return round(workers_index, 2)

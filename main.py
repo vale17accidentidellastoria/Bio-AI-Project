@@ -3,6 +3,7 @@ import getopt
 import os
 import cities_co2_graph as transport_graph
 import st_index as st_index
+import wr_index as wr_index
 
 # Disable
 def blockPrint():
@@ -34,15 +35,17 @@ def main(argv):
 
     #create an empty vector for a dictionary with countries as keys and sustainability indexes as values
     st_index_countries = {}
-    #wr_index_countries = {}
+    wr_index_countries = {}
 
     for c in countries:
         if c == DESTINATION_COUNTRY:
             st_index_countries[c] = 10.0
+            wr_index_countries[c] = wr_index.compute_workers_sustainability_index(c)
         else:
             st_index_countries[c] = st_index.compute_transport_sustainability_index(G, shortest_paths[c], edge_attrs)
             wr_index_countries[c] = wr_index.compute_workers_sustainability_index(c)
-        print("\t {} = {}".format(c, st_index_countries[c], wr_index_countries[c]))
+        print("\t {} = {}".format(c, st_index_countries[c]))
+        print("workers index: ", c, wr_index_countries[c])
 
 if __name__ == "__main__":   
     main(sys.argv[1:])

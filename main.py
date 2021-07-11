@@ -5,6 +5,7 @@ import cities_co2_graph as transport_graph
 import st_index as st_index
 import pr_index as pr_index
 from PIL import Image
+import prices as prices
 
 
 # Disable
@@ -55,6 +56,15 @@ def main(argv):
     print("Corresponding csv file has been saved in the \'data\' directory.")
     with Image.open('data/final.png') as img:
         img.show()
+    
+
+    prices_countries = prices.get_prices()
+
+    print("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°")
+    print("Average cotton prices per country are:")
+    for c in prices_countries.keys(): 
+        print("\t {} = {}{}".format(c, prices_countries[c], "€"))    
+
 
 if __name__ == "__main__":   
     main(sys.argv[1:])

@@ -53,6 +53,8 @@ def main(argv):
     wr_index_countries = {}
     pr_index_countries, final_table = pr_index.compute_production_sustainability_index()
 
+    sustainability_index_countries = {}
+
     prices_countries = prices.get_prices()
 
     for c in countries:
@@ -63,9 +65,11 @@ def main(argv):
 
         wr_index_countries[c] = wr_index.compute_workers_sustainability_index(c)
 
-        data_to_print.append([c, pr_index_countries[c], wr_index_countries[c], st_index_countries[c], prices_countries[c]])
+        sustainability_index_countries[c] = round(0.5 * pr_index_countries[c] + 0.35 * wr_index_countries[c] + 0.15 * st_index_countries[c], 2)
 
-    print(tabulate(data_to_print, headers=["Country", "Production", "Workers", "Transport", "Cotton Price (€)"]))
+        data_to_print.append([c, pr_index_countries[c], wr_index_countries[c], st_index_countries[c], sustainability_index_countries[c], prices_countries[c]])
+
+    print(tabulate(data_to_print, headers=["Country", "Production", "Workers", "Transport", "Sustainability Index", "Cotton Price (€)"]))
 
     #print("°°°°°°°°°°°°°°°°°°°°°°°°°°°°°")
     #print("Corresponding csv file has been saved in the \'data\' directory.")

@@ -12,15 +12,13 @@ import copy
 values = [arange(0.5, 5, .3), arange(0.5, 9, 0.1), arange(0.5, 9, 0.1), arange(0.5, 9, 0.1)]
 
 
-class DiskClutchBounder(object):
+class SustainabilityBounder(object):
     def __call__(self, candidate, args):
         closest = lambda target, index: min(values[index],
                                             key=lambda x: abs(x - target))
 
         for i, c in enumerate(candidate):
-            print("before:", candidate[i])
             candidate[i] = closest(c, i)
-            print("after:", candidate[i])
         return candidate
 
 
@@ -65,11 +63,11 @@ class ConstrainedPareto(Pareto):
             return not_worse and strictly_better
 
 
-class DiskClutchBrake(benchmarks.Benchmark):
+class SustainabilityProblem(benchmarks.Benchmark):
 
     def __init__(self, constrained=False):
         benchmarks.Benchmark.__init__(self, 4, 2)
-        self.bounder = DiskClutchBounder()
+        self.bounder = SustainabilityBounder()
         self.maximize = True
         self.constrained = constrained
 

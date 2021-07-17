@@ -9,7 +9,7 @@ import copy
 # possible values
 
         # c[0] prezzo          c[1] production          c[2] workers         c[3] transportation
-values = [arange(0.5, 5, .3), arange(0.5, 9, 0.1), arange(0.5, 9, 0.1), arange(0.5, 9, 0.1)]
+values = [arange(0.5, 5, .3), arange(0.5, 10, 0.1), arange(0.5, 10, 0.1), arange(0.5, 10, 0.1)]
 
 
 class SustainabilityBounder(object):
@@ -78,7 +78,7 @@ class SustainabilityProblem(benchmarks.Benchmark):
         fitness = []
         for c in candidates:
 
-            f2 = 0.5 * c[1]+ 0.35 * c[2] + 0.15 * c[3] 
+            f2 = 0.5 * c[1] + 0.35 * c[2] + 0.15 * c[3]
 
             f1 = c[0]
 
@@ -87,9 +87,6 @@ class SustainabilityProblem(benchmarks.Benchmark):
                                              self.maximize))
 
         return fitness
-
-        
-
 
     def constraint_function(self,candidate):
         if not self.constrained :
@@ -110,8 +107,7 @@ class SustainabilityProblem(benchmarks.Benchmark):
             if candidate[0] >= 2: 
                 violations = candidate[0] - 2
         
-        if f > 2 and f <= 3: 
-
+        if f > 2 and f <= 3:
             if candidate[0] >= 3 :
                 violations = candidate[0] - 3
             
@@ -122,10 +118,8 @@ class SustainabilityProblem(benchmarks.Benchmark):
             if candidate[0] <= 2.5: 
                 violations = 2.5 - candidate[0]
 
-    
             if candidate[0] >= 3.5: 
                 violations = candidate[0] - 2.5
-
 
         if f > 4 and f <= 5: 
             if candidate[0] <= 3 : 
@@ -143,16 +137,11 @@ class SustainabilityProblem(benchmarks.Benchmark):
             if candidate[0] <= 4.5: 
                 violations = 4.4 - candidate[0]
 
-        if f > 8: 
-
+        if f > 8:
             if candidate[0] <= 5 : 
                 violations = 5 - candidate[0]
 
-
         return violations
-
-
-
 
 
 @mutator

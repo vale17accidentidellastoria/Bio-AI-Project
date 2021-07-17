@@ -94,9 +94,6 @@ def main(argv):
 
     args["fig_title"] = 'NSGA-2'
 
-    #if len(sys.argv) > 1:
-    #rng = NumpyRandomWrapper(int(sys.argv[1]))
-    #else:
     rng = NumpyRandomWrapper()
 
     final_pop, final_pop_fitnesses = multi_objective.run_nsga2(rng, problem, display=display,
@@ -106,7 +103,7 @@ def main(argv):
     print()
     print("Final Population Fitnesses\n", final_pop_fitnesses)
 
-    output = open("exercise_3.csv", "w")
+    output = open("final_output.csv", "w")
     for individual, fitness in zip(final_pop, final_pop_fitnesses):
         output.write(reduce(lambda x, y: str(x) + "," + str(y),
                             individual))

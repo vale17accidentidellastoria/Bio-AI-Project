@@ -15,7 +15,7 @@ from pylab import *
 from inspyred import benchmarks
 from inspyred.ec import variators
 from inspyred_utils import NumpyRandomWrapper
-from sustainability_problem import DiskClutchBrake, disk_clutch_brake_mutation
+from sustainability_problem import SustainabilityProblem, sust_indexes_mutations
 
 import multi_objective
 
@@ -80,17 +80,17 @@ def main(argv):
 
     # parameters for NSGA-2
     args = {}
-    args["pop_size"] = 10
+    args["pop_size"] = 100
     args["max_generations"] = 10
-    constrained = False
+    constrained = True
 
-    problem = DiskClutchBrake(constrained)
+    problem = SustainabilityProblem(constrained)
     if constrained:
         args["constraint_function"] = problem.constraint_function
-    args["objective_1"] = "Brake Mass (kg)"
-    args["objective_2"] = "Stopping Time (s)"
+    args["objective_1"] = "Price"
+    args["objective_2"] = "Sustainability"
 
-    args["variator"] = [variators.blend_crossover, disk_clutch_brake_mutation]
+    args["variator"] = [variators.blend_crossover, sust_indexes_mutations]
 
     args["fig_title"] = 'NSGA-2'
 
@@ -100,7 +100,7 @@ def main(argv):
     rng = NumpyRandomWrapper()
 
     final_pop, final_pop_fitnesses = multi_objective.run_nsga2(rng, problem, display=display,
-                                                               num_vars=2, **args)
+                                                               num_vars=4, **args)
 
     print("Final Population\n", final_pop)
     print()

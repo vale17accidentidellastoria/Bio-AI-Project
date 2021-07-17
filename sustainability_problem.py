@@ -4,24 +4,12 @@ from inspyred.ec.variators import mutator
 from pylab import *
 import copy
 
-# parameters, see Deb 2006
-Delta_R = 20  # mm
-L_max = 30  # mm
-delta = 0.5  # mm
-p_max = 1  # MPa
-V_sr_max = 10  # m/s
-n = 250  # rpm
-mu = 0.5
-s = 1.5
-M_s = 40  # Nm
-omega = pi * n / 30.  # rad/s
-rho = 0.0000078  # kg/mm^3
-T_max = 15  # s
-M_f = 3  # Nm
-I_z = 55  # kg*m^2
+
 
 # possible values
-values = [arange(0, 10, 0.1), arange(0, 5, 0.5)]
+
+        # c[0] prezzo          c[1] production          c[2] workers         c[3] transportation
+values = [arange(0.5, 5, .3), arange(0.5, 9, 0.1), arange(0.5, 9, 0.1), arange(0.5, 9, 0.1)]
 
 
 class DiskClutchBounder(object):
@@ -30,13 +18,15 @@ class DiskClutchBounder(object):
                                             key=lambda x: abs(x - target))
 
         for i, c in enumerate(candidate):
+            print("before:", candidate[i])
             candidate[i] = closest(c, i)
+            print("after:", candidate[i])
         return candidate
 
 
 class ConstrainedPareto(Pareto):
     def __init__(self, values=None, violations=None, ec_maximize=False):
-        Pareto.__init__(self, values, maximize=[True, False])
+        Pareto.__init__(self, values, maximize=[False, True, True, True])
         self.violations = violations
         self.ec_maximize = ec_maximize
 
@@ -78,77 +68,97 @@ class ConstrainedPareto(Pareto):
 class DiskClutchBrake(benchmarks.Benchmark):
 
     def __init__(self, constrained=False):
-        benchmarks.Benchmark.__init__(self, 2, 2)
+        benchmarks.Benchmark.__init__(self, 4, 2)
         self.bounder = DiskClutchBounder()
         self.maximize = True
         self.constrained = constrained
 
     def generator(self, random, args):
-        print("GENERATOR")
         return [random.sample(values[i], 1)[0] for i in range(self.dimensions)]
 
     def evaluator(self, candidates, args):
-        print("EVALUATOR")
         fitness = []
         for c in candidates:
-            f1 = c[1]
 
-            f2 = c[0]
-            #ipotesi: come dicevamo con Asia, si potrebbe fare f2 = 0.15*c[1] + 0.35*c[2].... dove c[1], c[2], c[3] saranno i nostri 3 sotto indici (che naturalmente andranno definiti aumentando il numero di variables e aggiungengo i loro tre range in values
+            f2 = 0.5 * c[1]+ 0.35 * c[2] + 0.15 * c[3] 
 
-            fitness.append(ConstrainedPareto([f2, f1],
+            f1 = c[0]
+
+            fitness.append(ConstrainedPareto([f1, f2],
                                              self.constraint_function(c),
                                              self.maximize))
 
         return fitness
 
-    def constraint_function(self, candidate):
-        if not self.constrained:
+        
+
+
+    def constraint_function(self,candidate):
+        if not self.constrained :
             return 0
         """Return the magnitude of constraint violations."""
-        A = pi * (candidate[1] ** 2 - candidate[0] ** 2)  # mm^2
-        p_rz = candidate[3] / A  # N/mm^2
-        R_sr = ((2. / 3.) * (candidate[1] ** 3 - candidate[0] ** 3) /
-                (candidate[1] ** 2 - candidate[0] ** 2))  # mm
-        V_sr = pi * R_sr * n / 30000.  # m/s
-
-        M_h = ((2. / 3.) * mu * candidate[3] * candidate[4] *
-               (candidate[1] ** 3 - candidate[0] ** 3) /
-               (candidate[1] ** 2 - candidate[0] ** 2)) / 1000.  # N*m
-
-        T = (I_z * omega) / (M_h + M_f)
 
         violations = 0
-        # g_1
-        if (candidate[1] - candidate[0] - Delta_R) < 0:
-            violations -= (candidate[1] - candidate[0] - Delta_R)
-            # g_2
-        if (L_max - (candidate[4] + 1) * (candidate[2] + delta)) < 0:
-            violations -= (L_max - (candidate[4] + 1) * (candidate[2] + delta))
-        # g_3
-        if (p_max - p_rz) < 0:
-            violations -= (p_max - p_rz)
-            # g_4
-        if (p_max * V_sr_max - p_rz * V_sr) < 0:
-            violations -= (p_max * V_sr_max - p_rz * V_sr)
-        # g_5
-        if (V_sr_max - V_sr) < 0:
-            violations -= (V_sr_max - V_sr)
-        # g_6
-        if (M_h - s * M_s) < 0:
-            violations -= (M_h - s * M_s)
-            # g_7
-        if (T < 0):
-            violations -= T
-        # g_8
-        if (T_max - T) < 0:
-            violations -= (T_max - T)
+        f = 0.5*candidate[1] + 0.35*candidate[2] + 0.15*candidate[3]
+
+        if f > 0 and f <=1:
+            if candidate[0] <= 1: 
+                violations = violations
+            
+            if candidate[0] > 1.1:
+                violations = candidate[0] - 1.1 
+        
+        if f > 1 and f <=2 : 
+            if candidate[0] >= 2: 
+                violations = candidate[0] - 2
+        
+        if f > 2 and f <= 3: 
+
+            if candidate[0] >= 3 :
+                violations = candidate[0] - 3
+            
+            if candidate[0] <= 2: 
+                violations =  2 - candidate[0]
+        
+        if f > 3 and f <=4:
+            if candidate[0] <= 2.5: 
+                violations = 2.5 - candidate[0]
+
+    
+            if candidate[0] >= 3.5: 
+                violations = candidate[0] - 2.5
+
+
+        if f > 4 and f <= 5: 
+            if candidate[0] <= 3 : 
+                violations = 3 - candidate[0]  
+
+        if f > 5 and f <=6: 
+            if candidate[0] <= 3.5: 
+                violations = 3.5 - candidate[0]            
+            
+        if f > 6 and f <= 7: 
+            if candidate[0] <= 4: 
+                violations = 4 - candidate[0]
+
+        if f > 7 and f <= 8: 
+            if candidate[0] <= 4.5: 
+                violations = 4.4 - candidate[0]
+
+        if f > 8: 
+
+            if candidate[0] <= 5 : 
+                violations = 5 - candidate[0]
+
 
         return violations
 
 
+
+
+
 @mutator
-def disk_clutch_brake_mutation(random, candidate, args):
+def sust_indexes_mutations(random, candidate, args):
     mut_rate = args.setdefault('mutation_rate', 0.1)
     bounder = args['_ec'].bounder
     mutant = copy.copy(candidate)

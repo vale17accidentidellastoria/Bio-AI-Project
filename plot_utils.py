@@ -88,7 +88,7 @@ def plot_multi_objective_2D(axis, problem, x_limits, objective) :
     x = arange(x_limits[0], x_limits[1]+dx, dx)
     z = asarray( [problem.evaluator([[i,j] for i in x], None) 
                   for j in x])[:,:,int(objective)]
-                  
+      
     return axis.contourf(x, x, z, 64, cmap=cm.hot_r)
     
 def plot_results_multi_objective_1D(problem, individuals_1, fitnesses_1, 
@@ -171,8 +171,8 @@ def plot_results_multi_objective_PF(individuals, title) :
         plot([guy.fitness[0] for guy in individuals],
              [guy.fitness[1] for guy in individuals],
              '.b', markersize=7)
-        xlabel('f0')
-        ylabel('f1')
+        xlabel('Price')
+        ylabel('Sustainability')
     else:
         # Creates two subplots and unpacks the output array immediately
         f, axes = subplots(num_objectives, num_objectives, sharex='col', sharey='row')

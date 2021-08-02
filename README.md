@@ -1,4 +1,6 @@
-# Bio-AI-Project
+# Bio-Inspired Artificial Intelligence Project 
+## A multi-objective optimization approach to sustainability in the fashion industry 
+
 
 ````
 Run options:
